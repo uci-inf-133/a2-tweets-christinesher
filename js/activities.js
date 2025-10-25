@@ -29,8 +29,6 @@ function parseTweets(runkeeper_tweets) {
 		document.getElementById('firstMost').innerText = sortedActivities[0][0];
 		document.getElementById('secondMost').innerText = sortedActivities[1][0];
 		document.getElementById('thirdMost').innerText = sortedActivities[2][0];
-	} else {
-		console.error('Not enough activities found:', sortedActivities.length);
 	}
 	
 	const activityData = Object.entries(activityCounts).map(([activity, count]) => ({

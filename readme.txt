@@ -9,26 +9,24 @@
 
 2. How long, in hours, did it take you to complete this assignment?
 
-Approximately 4-5 hours
+Around 15 hours
 
 3. What online resources did you consult when completing this assignment? (list sites like StackOverflow or specific URLs for tutorials; describe queries to Generative AI or use of AI-based code completion)
 
-- Vega-Lite documentation for creating visualizations
-- JavaScript Date methods documentation for date formatting
-- Regular expression patterns for parsing tweet text
+- I needed help for the graph so I checked out Vega-Lite documentation and examples (https://vega.github.io/vega-lite/examples/) for creating visualizations
+- It was difficult for me to understand the tweet data, so I looked more into that
+- I asked chatgpt on how to import the data
+- I didn't know how to replace the ??? dynamically so I had help from chatgpt on that 
+- I had help from how to make the number of tweets turn 0 and whenever the search bar is empty
+
 
 4. What classmates or other individuals did you consult as part of this assignment? What did you discuss?
 
-No classmates or other individuals were consulted for this assignment.
+None.
 
 5. Is there anything special we need to know in order to run your code?
 
-The code should work as-is. All functionality has been implemented:
-- Tweet categorization and analysis
-- Activity type and distance parsing
-- Interactive visualizations with Vega-Lite
-- Real-time search functionality
-- All DOM elements are dynamically updated based on the data
+No special requirements.
 
-The TypeScript file has been manually compiled to JavaScript since TypeScript compiler was not available in the environment.
+
 
