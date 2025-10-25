@@ -1,4 +1,4 @@
---Readme document for Christine Sher, christinesher@uci.edu--
+--Readme document for Christine Sher, ysher@uci.edu--
 
 1. How many assignment points do you believe you completed (replace the *'s with your numbers)?
 
