@@ -9,13 +9,27 @@ class Tweet {
 
 	//returns either 'live_event', 'achievement', 'completed_event', or 'miscellaneous'
     get source():string {
-        //TODO: identify whether the source is a live event, an achievement, a completed event, or miscellaneous.
-        return "unknown";
+        if (this.text.includes("Just completed") || this.text.includes("Just posted")) {
+            return "completed_event";
+        }
+        if (this.text.includes("Just started") || this.text.includes("Currently") || this.text.includes("Now")) {
+            return "live_event";
+        }
+        if (this.text.includes("New PB") || this.text.includes("Personal best") || this.text.includes("achievement") || 
+            this.text.includes("goal") || this.text.includes("milestone") || this.text.includes("record")) {
+            return "achievement";
+        }
+        return "miscellaneous";
     }
 
     //returns a boolean, whether the text includes any content written by the person tweeting.
     get written():boolean {
-        //TODO: identify whether the tweet is written
+        if (this.text.includes(' - ')) {
+            return true;
+        }
+        if (this.text.includes('with @Runkeeper. Check it out!')) {
+            return false;
+        }
         return false;
     }
 
@@ -23,7 +37,13 @@ class Tweet {
         if(!this.written) {
             return "";
         }
-        //TODO: parse the written text from the tweet
+        const dashIndex = this.text.indexOf(' - ');
+        if (dashIndex !== -1) {
+            let userText = this.text.substring(dashIndex + 3);
+            userText = userText.replace(/https:\/\/t\.co\/\w+/g, '').trim();
+            userText = userText.replace(/#RunKeeper/g, '').trim();
+            return userText;
+        }
         return "";
     }
 
@@ -31,20 +51,56 @@ class Tweet {
         if (this.source != 'completed_event') {
             return "unknown";
         }
-        //TODO: parse the activity type from the text of the tweet
-        return "";
+        const text = this.text.toLowerCase();
+        
+        if (text.includes(' run ') || text.includes('run with') || text.includes('km run') || text.includes('mi run')) {
+            return "running";
+        } else if (text.includes(' walk') || text.includes('walk ') || text.includes('km walk') || text.includes('mi walk')) {
+            return "walking";
+        } else if (text.includes(' bike') || text.includes('bike ') || text.includes('km bike') || text.includes('mi bike') || text.includes('cycling')) {
+            return "cycling";
+        } else if (text.includes('hike') || text.includes('hiking')) {
+            return "hiking";
+        } else if (text.includes('swim') || text.includes('swimming')) {
+            return "swimming";
+        } else if (text.includes('ski') || text.includes('skiing')) {
+            return "skiing";
+        } else if (text.includes('yoga')) {
+            return "yoga";
+        } else if (text.includes('workout') || text.includes('training')) {
+            return "workout";
+        } else {
+            return "other";
+        }
     }
 
     get distance():number {
         if(this.source != 'completed_event') {
             return 0;
         }
-        //TODO: prase the distance from the text of the tweet
+        const text = this.text;
+        const kmMatch = text.match(/(\d+\.?\d*)\s*km/);
+        const miMatch = text.match(/(\d+\.?\d*)\s*mi/);
+        
+        if (kmMatch) {
+            const km = parseFloat(kmMatch[1]);
+            return km * 0.621371;
+        } else if (miMatch) {
+            return parseFloat(miMatch[1]);
+        }
+        
         return 0;
     }
 
     getHTMLTableRow(rowNumber:number):string {
-        //TODO: return a table row which summarizes the tweet with a clickable link to the RunKeeper activity
-        return "<tr></tr>";
+        const activityType = this.activityType;
+        const linkMatch = this.text.match(/https:\/\/t\.co\/\w+/);
+        const link = linkMatch ? linkMatch[0] : "#";
+        
+        return `<tr>
+            <td>${rowNumber}</td>
+            <td>${activityType}</td>
+            <td><a href="${link}" target="_blank">${this.text}</a></td>
+        </tr>`;
     }
 }
