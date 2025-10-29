@@ -95,7 +95,7 @@ function parseTweets(runkeeper_tweets) {
 	  "data": {
 	    "values": aggregatedData
 	  },
-	  "mark": "bar",
+	  "mark": "point",
 	  "encoding": {
 	    "x": {"field": "dayOfWeek", "type": "ordinal", "sort": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]},
 	    "y": {"field": "avgDistance", "type": "quantitative"},
